@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter Demo</title>
+</head>
+<body>
+    <div id="app">
+        <counter v-model="count"></counter>
+    </div>
+    <script src="https://unpkg.com/vue@3.3.4/dist/vue.global.js"></script>
+    <script src="../dist/counter.umd.js"></script>
+    <script>
+        const { createApp, ref } = Vue
+        
+        createApp({
+            setup() {
+                const count = ref(0)
+                return { count }
+            }})
+        .component('Counter', Counter)
+        .mount('#app')
+    </script>
+</body>
+</html>

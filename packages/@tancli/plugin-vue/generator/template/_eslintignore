@@ -1,0 +1,6 @@
+dist
+node_modules
+assets
+auto-imports.d.ts
+components.d.ts
+template

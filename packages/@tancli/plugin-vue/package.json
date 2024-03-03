@@ -1,0 +1,21 @@
+{
+  "name": "@tancli/plugin-vue",
+  "version": "1.0.2",
+  "description": "@tancli/plugin-vue",
+  "files": [
+    "generator",
+    "prompts.js",
+    "package.json",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "release": "node ../../../scripts/release.mjs"
+  },
+  "dependencies": {
+    "@tancli/cli": "workspace:^"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@tancli/plugin-pnpm-monorepo",
+  "version": "1.0.0",
+  "description": "@tancli/plugin-pnpm-monorepo",
+  "homepage": "",
+  "files": [
+    "generator",
+    "prompts.js",
+    "package.json",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "release": "node ../../../scripts/release.mjs"
+  },
+  "dependencies": {
+    "@tancli/cli": "workspace:^"
+  }
+}
