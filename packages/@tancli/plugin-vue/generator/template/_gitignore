@@ -7,26 +7,22 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# 打包分析报告
-stats.html
-tsconfig.tsbuildinfo
-
 node_modules
 .DS_Store
 dist
 dist-ssr
 coverage
-
-auto-imports.d.ts
-components.d.ts
+*.local
 
 /cypress/videos/
 /cypress/screenshots/
 
-
+# Editor directories and files
 .idea
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+*.tsbuildinfo
