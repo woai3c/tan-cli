@@ -23,93 +23,93 @@ const run = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...op
 const step = (msg) => console.log(chalk.cyan(msg))
 
 async function main() {
-    let targetVersion = args._[0]
-    console.log(targetVersion)
-    if (!targetVersion) {
-        // no explicit version, offer suggestions
-        const { release } = await prompts({
-            type: 'select',
-            name: 'release',
-            message: 'Select release type',
-            choices: versionIncrements
-                .map((i) => `${i} (${inc(i)})`)
-                .concat(['custom'])
-                .map((i) => ({ value: i, title: i })),
-        })
-
-        if (release === 'custom') {
-            const res = await prompts({
-                type: 'text',
-                name: 'version',
-                message: 'Input custom version',
-                initial: currentVersion,
-            })
-            targetVersion = res.version
-        } else {
-            targetVersion = release.match(/\((.*)\)/)?.[1] || ''
-        }
-    }
-
-    if (!semver.valid(targetVersion)) {
-        throw new Error(`invalid target version: ${targetVersion}`)
-    }
-
-    const tag = pkgName === 'cli' ? `v${targetVersion}` : `${pkgName}@${targetVersion}`
-
-    const { yes } = await prompts({
-        type: 'confirm',
-        name: 'yes',
-        message: `Releasing ${tag}. Confirm?`,
+  let targetVersion = args._[0]
+  console.log(targetVersion)
+  if (!targetVersion) {
+    // no explicit version, offer suggestions
+    const { release } = await prompts({
+      type: 'select',
+      name: 'release',
+      message: 'Select release type',
+      choices: versionIncrements
+        .map((i) => `${i} (${inc(i)})`)
+        .concat(['custom'])
+        .map((i) => ({ value: i, title: i })),
     })
 
-    if (!yes) {
-        return
-    }
-
-    step('\nUpdating package version...')
-    updateVersion(targetVersion)
-
-    const { stdout } = await run('git', ['diff'], { stdio: 'pipe' })
-    if (stdout) {
-        step('\nCommitting changes...')
-        await run('git', ['add', '-A'])
-        await run('git', ['commit', '-m', `release: ${tag}`])
+    if (release === 'custom') {
+      const res = await prompts({
+        type: 'text',
+        name: 'version',
+        message: 'Input custom version',
+        initial: currentVersion,
+      })
+      targetVersion = res.version
     } else {
-        console.log('No changes to commit.')
+      targetVersion = release.match(/\((.*)\)/)?.[1] || ''
     }
+  }
 
-    step('\nPublishing package...')
-    await publishPackage(targetVersion)
+  if (!semver.valid(targetVersion)) {
+    throw new Error(`invalid target version: ${targetVersion}`)
+  }
 
-    step('\nPushing to Gitlab...')
-    await run('git', ['push'])
+  const tag = pkgName === 'cli' ? `v${targetVersion}` : `${pkgName}@${targetVersion}`
 
-    console.log()
+  const { yes } = await prompts({
+    type: 'confirm',
+    name: 'yes',
+    message: `Releasing ${tag}. Confirm?`,
+  })
+
+  if (!yes) {
+    return
+  }
+
+  step('\nUpdating package version...')
+  updateVersion(targetVersion)
+
+  const { stdout } = await run('git', ['diff'], { stdio: 'pipe' })
+  if (stdout) {
+    step('\nCommitting changes...')
+    await run('git', ['add', '-A'])
+    await run('git', ['commit', '-m', `release: ${tag}`])
+  } else {
+    console.log('No changes to commit.')
+  }
+
+  step('\nPublishing package...')
+  await publishPackage(targetVersion)
+
+  step('\nPushing to Gitlab...')
+  await run('git', ['push'])
+
+  console.log()
 }
 
 function updateVersion(version) {
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
-    pkg.version = version
-    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
+  pkg.version = version
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
 }
 
 async function publishPackage(version) {
-    const publicArgs = ['publish', '--access=public', '--registry=https://registry.npmjs.org/']
+  const publicArgs = ['publish', '--access=public', '--registry=https://registry.npmjs.org/']
 
-    try {
-        await run('pnpm', publicArgs, {
-            stdio: 'pipe',
-        })
-        console.log(chalk.green(`Successfully published ${pkgName}@${version}`))
-    } catch (e) {
-        if (e.stderr.match(/previously published/)) {
-            console.log(chalk.red(`Skipping already published: ${pkgName}`))
-        } else {
-            throw e
-        }
+  try {
+    await run('pnpm', publicArgs, {
+      stdio: 'pipe',
+    })
+    console.log(chalk.green(`Successfully published ${pkgName}@${version}`))
+  } catch (e) {
+    if (e.stderr.match(/previously published/)) {
+      console.log(chalk.red(`Skipping already published: ${pkgName}`))
+    } else {
+      throw e
     }
+  }
 }
 
 main().catch((err) => {
-    console.error(err)
+  console.error(err)
 })

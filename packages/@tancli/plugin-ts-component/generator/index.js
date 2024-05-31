@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const writeFileTree = require('@tancli/cli/src/utils/write-file-tree')
 const generateReadme = require('./utils/generate-readme')
 const { loadOptions } = require('@tancli/cli/src/utils/options')
@@ -23,7 +22,7 @@ module.exports = (generator, options = {}) => {
             release: 'npm run build && npm run test && node scripts/release.mjs',
         },
         'lint-staged': {
-            'src/**/*.{ts,js}': ['eslint --fix', 'git add'],
+            '*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}': ['eslint --fix', 'prettier --write'],
         },
         devDependencies: {
             '@microsoft/api-extractor': '^7.36.4',
@@ -34,7 +33,7 @@ module.exports = (generator, options = {}) => {
             '@types/node': '^18.17.12',
             chalk: '^5.3.0',
             eslint: '^8.48.0',
-            'eslint-config-airbnb-vue3-ts': '^0.2.4',
+            'eslint-config-airbnb-vue3-ts': '^0.3.0',
             execa: '^8.0.1',
             husky: '^8.0.3',
             jsdom: '^22.1.0',
@@ -44,8 +43,8 @@ module.exports = (generator, options = {}) => {
             rollup: '^3.28.1',
             'rollup-plugin-typescript2': '^0.35.0',
             semver: '^7.5.4',
-            typescript: '^4.9.5',
-            vitest: '^0.34.3',
+            typescript: '~5.4.0',
+            vitest: '^1.4.3',
         },
     }
 

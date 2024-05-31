@@ -1,13 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-      "declaration": true,
-      "emitDeclarationOnly": true,
-      "outDir": "temp",
-      "declarationDir": "temp"
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "temp",
+    "declarationDir": "temp"
   },
-  "exclude": [
-      "rollup.config.ts",
-      "tests/**/*"
-  ],
+  "exclude": ["rollup.config.ts", "tests/**/*"]
 }

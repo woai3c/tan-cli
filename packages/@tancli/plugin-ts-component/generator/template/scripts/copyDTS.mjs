@@ -8,11 +8,11 @@ const __dirname = dirname(__filename)
 const files = readdirSync(getFilePath('../types'))
 let code = ''
 files.forEach((file) => {
-    code += '\n' + readFileSync(getFilePath(`../types/${file}`)) + '\n'
+  code += '\n' + readFileSync(getFilePath(`../types/${file}`)) + '\n'
 })
 
 appendFileSync(getFilePath('../dist/index.d.ts'), code)
 
 function getFilePath(name) {
-    return resolve(__dirname, name)
+  return resolve(__dirname, name)
 }

@@ -19,19 +19,11 @@
     "resolveJsonModule": true,
     "lib": ["dom", "esnext"],
     "incremental": true,
-    "types": [
-      "node",
-      "vitest/globals"
-    ],
+    "types": ["node", "vitest/globals"],
     "typeRoots": ["./node_modules/@types/", "./types/", "./node_modules/"],
     "paths": {
       "@/*": ["src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "rollup.config.ts",
-    "types/**/*",
-    "tests/**/*"
-  ],
+  "include": ["src/**/*", "rollup.config.ts", "types/**/*", "tests/**/*"]
 }
