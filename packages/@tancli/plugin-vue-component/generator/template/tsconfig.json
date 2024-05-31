@@ -20,28 +20,11 @@
     "lib": ["dom", "esnext"],
     "incremental": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@build/*": ["build/*"],
+      "@/*": ["src/*"]
     },
-    "types": [
-      "node",
-      "vite/client",
-      "vitest/globals"
-    ],
+    "types": ["node", "vite/client", "vitest/globals"],
     "typeRoots": ["./node_modules/@types/", "./types", "./node_modules/"]
   },
-  "include": [
-    "env.d.ts",
-    "src/**/*.vue",
-    "src/**/*",
-    "types/*.d.ts",
-    "vite.config.ts",
-    "tests/**/*",
-  ],
-  "exclude": [
-    "node_modules", 
-    "dist", 
-    "**/*.js", 
-    "index.html",
-  ]
+  "include": ["env.d.ts", "src/**/*.vue", "src/**/*", "types/*.d.ts", "vite.config.ts", "tests/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.js", "index.html"]
 }

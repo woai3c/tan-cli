@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <p class="text-center">计数器</p>
-        <Counter v-model="value" />
-        <Counter v-model="value2" />
-        <Counter v-model="value3" />
-    </div>
+  <div>
+    <p class="text-center">计数器</p>
+    <Counter v-model="value" />
+    <Counter v-model="value2" />
+    <Counter v-model="value3" />
+  </div>
 </template>
 
 <script lang="ts" setup>
