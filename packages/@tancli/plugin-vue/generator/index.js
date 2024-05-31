@@ -39,6 +39,7 @@ module.exports = (generator, options = {}) => {
             chalk: '^5.3.0',
             eslint: '^8.57.0',
             'eslint-config-airbnb-vue3-ts': '^0.3.0',
+            cssnano: '^7.0.1',
             husky: '^9.0.11',
             jsdom: '^24.0.0',
             'lint-staged': '^15.2.2',
